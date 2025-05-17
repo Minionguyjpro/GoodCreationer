@@ -24,10 +24,17 @@ module.exports = {
         .setName('help')
         .setDescription('Lists all commands and their descriptions.'),
     async execute(interaction) {
-        const commandList = commands.map(command => {
-            return `**/${command.name}**: ${command.description}`;
-        }).join('\n');
+        try {
+            // Map command data into a string format with '- ' prefix for each command
+            const commandList = commands.map(command => {
+                return `- **/${command.name}**: ${command.description}`;
+            }).join('\n');
 
-        await interaction.reply(`Here are all the available commands:\n- ${commandList}`);
+            // Send the command list as a reply
+            await interaction.reply(`Here are all the available commands:\n${commandList}`);
+        } catch (error) {
+            console.error('Error executing the help command:', error);
+            await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        }
     }
-}
+};
