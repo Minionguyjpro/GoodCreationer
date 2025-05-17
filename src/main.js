@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 require('./deploy-commands')
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + `/../.env` });
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
